@@ -73,6 +73,7 @@ public:
     void SetFaderIsMute ( const bool bIsMute );
     void SetGroupID ( const int iNGroupID );
     void SetRemoteFaderIsMute ( const bool bIsMute );
+    void SetRemoteFaderIsMuteMyself ( const bool bIsMute );
     void SetFaderLevel ( const double dLevel,
                          const bool   bIsGroupUpdate = false );
 
@@ -103,6 +104,7 @@ protected:
     QDial*       pPan;
     QLabel*      pPanLabel;
     QLabel*      pInfoLabel;
+    QLabel*      pInfoLabelMuteMyself;
     QHBoxLayout* pLabelGrid;
     QVBoxLayout* pLabelPictGrid;
 
@@ -204,6 +206,7 @@ public:
     void            SetDisplayPans ( const bool eNDP );
     void            SetPanIsSupported();
     void            SetRemoteFaderIsMute ( const int iChannelIdx, const bool bIsMute );
+    void            SetRemoteFaderIsMuteMyself( const int iChannelIdx, const bool bIsMute );
     void            SetMyChannelID ( const int iChannelIdx ) { iMyChannelID = iChannelIdx; }
 
     void            SetFaderLevel ( const int iChannelIdx,

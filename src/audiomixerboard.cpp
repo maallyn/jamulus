@@ -42,6 +42,7 @@ CChannelFader::CChannelFader ( QWidget* pNW ) :
     pPan                        = new QDial       ( pLevelsBox );
     pPanLabel                   = new QLabel      ( tr ( "Pan" ), pLevelsBox );
     pInfoLabel                  = new QLabel      ( "", pLevelsBox );
+    pInfoLabelMuteMyself        = new QLabel      ( "", pLevelsBox );
 
     pMuteSoloBox                = new QWidget     ( pFrame );
     pcbMute                     = new QCheckBox   ( tr ( "Mute" ), pMuteSoloBox );
@@ -85,8 +86,10 @@ CChannelFader::CChannelFader ( QWidget* pNW ) :
     pPan->setValue               ( AUD_MIX_PAN_MAX / 2 );
     pPan->setNotchesVisible      ( true );
     pInfoLabel->setMinimumHeight ( 15 ); // prevents jitter when muting/unmuting (#811)
+    pInfoLabelMuteMyself->setMinimumHeight ( 15 ); // prevents jitter when going on and off (#811)
     pPanInfoGrid->addWidget      ( pPanLabel, 0, Qt::AlignLeft );
     pPanInfoGrid->addWidget      ( pInfoLabel );
+    pPanInfoGrid->addWidget      ( pInfoLabelMuteMyself );
     pPanGrid->addLayout          ( pPanInfoGrid );
     pPanGrid->addWidget          ( pPan, 0, Qt::AlignHCenter );
 
@@ -152,6 +155,13 @@ CChannelFader::CChannelFader ( QWidget* pNW ) :
         "Speaker with cancellation stroke: Indicates that another client has muted you." ) +
         "</li></ul>" );
     pInfoLabel->setAccessibleName ( tr ( "Status indicator label" ) );
+
+    pInfoLabelMuteMyself->setWhatsThis ( "<b>" +  tr ( "Status Indicator" ) + ":</b> " + tr (
+        "Shows a status indication about the client which is assigned to this channel. "
+        "Supported indicators are:" ) + "<ul><li>" + tr (
+        "MM: Indicates that another client has muted themself." ) +
+        "</li></ul>" );
+    pInfoLabelMuteMyself->setAccessibleName ( tr ( "Status indicator label" ) );
 
     pPan->setWhatsThis ( "<b>" +  tr ( "Panning" ) + ":</b> " + tr (
         "Sets the pan from Left to Right of the channel. "
@@ -286,6 +296,7 @@ bool CChannelFader::GetDisplayChannelLevel()
 void CChannelFader::SetDisplayPans ( const bool eNDP )
 {
     pInfoLabel->setHidden ( !eNDP );
+    pInfoLabelMuteMyself->setHidden ( !eNDP );
     pPanLabel->setHidden  ( !eNDP );
     pPan->setHidden       ( !eNDP );
 }
@@ -367,6 +378,7 @@ void CChannelFader::Reset()
 
     // general initializations
     SetRemoteFaderIsMute ( false );
+    SetRemoteFaderIsMuteMyself ( false );
 
     // init gain and pan value -> maximum value as definition according to server
     pFader->setValue ( AUD_MIX_FADER_MAX );
@@ -463,6 +475,19 @@ void CChannelFader::SetRemoteFaderIsMute ( const bool bIsMute )
     else
     {
         pInfoLabel->setText ( "" );
+    }
+}
+
+void CChannelFader::SetRemoteFaderIsMuteMyself ( const bool bIsMute )
+{
+    if ( bIsMute )
+    {
+        // show orange utf8 SPEAKER WITH CANCELLATION STROKE (U+1F507)
+        pInfoLabelMuteMyself->setText ( "<font color=\"red\">MM;</font>" );
+    }
+    else
+    {
+        pInfoLabelMuteMyself->setText ( "" );
     }
 }
 
@@ -1355,6 +1380,19 @@ void CAudioMixerBoard::SetRemoteFaderIsMute ( const int  iChannelIdx,
         if ( vecpChanFader[iChannelIdx]->IsVisible() )
         {
             vecpChanFader[iChannelIdx]->SetRemoteFaderIsMute ( bIsMute );
+        }
+    }
+}
+
+void CAudioMixerBoard::SetRemoteFaderIsMuteMyself ( const int  iChannelIdx,
+                                              const bool bIsMute )
+{
+    // only apply remote mute state if channel index is valid and the fader is visible
+    if ( ( iChannelIdx >= 0 ) && ( iChannelIdx < MAX_NUM_CHANNELS ) )
+    {
+        if ( vecpChanFader[iChannelIdx]->IsVisible() )
+        {
+            vecpChanFader[iChannelIdx]->SetRemoteFaderIsMuteMyself ( bIsMute );
         }
     }
 }
