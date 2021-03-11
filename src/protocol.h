@@ -345,6 +345,7 @@ signals:
     void ChangeChanGain ( int iChanID, float fNewGain );
     void ChangeChanPan ( int iChanID, float fNewPan );
     void MuteStateHasChangedReceived ( int iCurID, bool bIsMuted );
+    void MuteMyselfStateHasChangedReceived ( int iCurID, bool bIsMuted );
     void ConClientListMesReceived ( CVector<CChannelInfo> vecChanInfo );
     void ServerFullMesReceived();
     void ReqConnClientsList();

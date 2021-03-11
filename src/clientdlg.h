@@ -237,6 +237,9 @@ public slots:
     void OnMuteStateHasChangedReceived ( int iChanID, bool bIsMuted )
         { MainMixerBoard->SetRemoteFaderIsMute ( iChanID, bIsMuted ); }
 
+    void OnMuteMyselfStateHasChangedReceived ( int iChanID, bool bIsMuted )
+        { MainMixerBoard->SetRemoteFaderIsMuteMyself ( iChanID, bIsMuted ); }
+
     void OnCLChannelLevelListReceived ( CHostAddress      /* unused */,
                                         CVector<uint16_t> vecLevelList )
         { MainMixerBoard->SetChannelLevels ( vecLevelList ); }

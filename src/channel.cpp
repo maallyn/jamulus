@@ -94,6 +94,9 @@ qRegisterMetaType<CHostAddress> ( "CHostAddress" );
     QObject::connect ( &Protocol, &CProtocol::MuteStateHasChangedReceived,
         this, &CChannel::MuteStateHasChangedReceived );
 
+    QObject::connect ( &Protocol, &CProtocol::MuteMyselfStateHasChangedReceived,
+        this, &CChannel::MuteMyselfStateHasChangedReceived );
+
     QObject::connect ( &Protocol, &CProtocol::ChangeChanInfo,
         this, &CChannel::OnChangeChanInfo );
 
