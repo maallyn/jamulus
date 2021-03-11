@@ -141,6 +141,9 @@ CClient::CClient ( const quint16  iPortNumber,
     QObject::connect ( &Channel, &CChannel::MuteStateHasChangedReceived,
         this, &CClient::MuteStateHasChangedReceived );
 
+    QObject::connect ( &Channel, &CChannel::MuteMyselfStateHasChangedReceived,
+        this, &CClient::MuteMyselfStateHasChangedReceived );
+
     QObject::connect ( &Channel, &CChannel::LicenceRequired,
         this, &CClient::LicenceRequired );
 

@@ -461,6 +461,9 @@ CClientDlg::CClientDlg ( CClient*         pNCliP,
     QObject::connect ( pClient, &CClient::MuteStateHasChangedReceived,
         this, &CClientDlg::OnMuteStateHasChangedReceived );
 
+    QObject::connect ( pClient, &CClient::MuteMyselfStateHasChangedReceived,
+        this, &CClientDlg::OnMuteMyselfStateHasChangedReceived );
+
     QObject::connect ( pClient, &CClient::RecorderStateReceived,
         this, &CClientDlg::OnRecorderStateReceived );
 

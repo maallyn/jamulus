@@ -401,6 +401,7 @@ signals:
     void ChatTextReceived ( QString strChatText );
     void ClientIDReceived ( int iChanID );
     void MuteStateHasChangedReceived ( int iChanID, bool bIsMuted );
+    void MuteMyselfStateHasChangedReceived ( int iChanID, bool bIsMuted );
     void LicenceRequired ( ELicenceType eLicenceType );
     void VersionAndOSReceived ( COSUtil::EOpSystemType eOSType, QString strVersion );
     void PingTimeReceived ( int iPingTime );
