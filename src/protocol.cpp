@@ -800,6 +800,10 @@ if ( rand() < ( RAND_MAX / 2 ) ) return false;
                     EvaluateMuteStateHasChangedMes ( vecbyMesBodyDataRef );
                     break;
 
+                case PROTMESSID_MUTEMYSELF_STATE_CHANGED:
+                    EvaluateMuteMyselfStateHasChangedMes ( vecbyMesBodyDataRef );
+                    break;
+
                 case PROTMESSID_CONN_CLIENTS_LIST:
                     EvaluateConClientListMes ( vecbyMesBodyDataRef );
                     break;
@@ -1146,6 +1150,28 @@ bool CProtocol::EvaluateMuteStateHasChangedMes ( const CVector<uint8_t> &vecData
 
     // invoke message action
     emit MuteStateHasChangedReceived ( iCurID, bIsMuted );
+
+    return false; // no error
+}
+
+bool CProtocol::EvaluateMuteMyselfStateHasChangedMes ( const CVector<uint8_t> &vecData )
+{
+    int iPos = 0; // init position pointer
+
+    // check size
+    if ( vecData.Size() != 2 )
+    {
+        return true; // return error code
+    }
+
+    // channel ID
+    const int iCurID = static_cast<int> ( GetValFromStream ( vecData, iPos, 1 ) );
+
+    // mute state
+    const bool bIsMuted = static_cast<bool> ( GetValFromStream ( vecData, iPos, 1 ) );
+
+    // invoke message action
+    emit MuteMyselfStateHasChangedReceived ( iCurID, bIsMuted );
 
     return false; // no error
 }
