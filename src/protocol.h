@@ -63,6 +63,7 @@
 #define PROTMESSID_RECORDER_STATE             33 // contains the state of the jam recorder (ERecorderState)
 #define PROTMESSID_REQ_SPLIT_MESS_SUPPORT     34 // request support for split messages
 #define PROTMESSID_SPLIT_MESS_SUPPORTED       35 // split messages are supported
+#define PROTMESSID_MUTEMYSELF_STATE_CHANGED   36 // mute myself state of another client has changed
 
 // message IDs of connection less messages (CLM)
 // DEFINITION -> start at 1000, end at 1999, see IsConnectionLessMessageID
@@ -272,6 +273,7 @@ protected:
     bool EvaluateChanGainMes            ( const CVector<uint8_t>& vecData );
     bool EvaluateChanPanMes             ( const CVector<uint8_t>& vecData );
     bool EvaluateMuteStateHasChangedMes ( const CVector<uint8_t>& vecData );
+    bool EvaluateMuteMyselfStateHasChangedMes ( const CVector<uint8_t>& vecData );
     bool EvaluateConClientListMes       ( const CVector<uint8_t>& vecData );
     bool EvaluateReqConnClientsList();
     bool EvaluateChanInfoMes            ( const CVector<uint8_t>& vecData );
