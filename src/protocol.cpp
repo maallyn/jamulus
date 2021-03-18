@@ -116,6 +116,12 @@ MESSAGES (with connection)
     | 1 byte channel ID | 1 byte is muted |
     +-------------------+-----------------+
 
+- PROTMESSID_MUTEMYSELF_STATE_CHANGED: Mute Myself state of your signal has changed
+
+    +-------------------+-----------------+
+    | 1 byte channel ID | 1 byte is muted |
+    +-------------------+-----------------+
+
 
 - PROTMESSID_CONN_CLIENTS_LIST: Information about connected clients
 
