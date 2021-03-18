@@ -118,6 +118,7 @@ public:
     void CreateChanGainMes ( const int iChanID, const float fGain );
     void CreateChanPanMes ( const int iChanID, const float fPan );
     void CreateMuteStateHasChangedMes ( const int iChanID, const bool bIsMuted );
+    void CreateMuteMyselfStateHasChangedMes ( const int iChanID, const bool bIsMuted );
     void CreateConClientListMes ( const CVector<CChannelInfo>& vecChanInfo );
     void CreateReqConnClientsList();
     void CreateChanInfoMes ( const CChannelCoreInfo ChanInfo );

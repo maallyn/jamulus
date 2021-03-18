@@ -1443,6 +1443,17 @@ void CServer::CreateOtherMuteStateChanged ( const int  iCurChanID,
     }
 }
 
+void CServer::CreateOtherMuteMyselfStateChanged ( const int  iCurChanID,
+                                            const int  iOtherChanID,
+                                            const bool bIsMuted )
+{
+    if ( vecChannels[iOtherChanID].IsConnected() )
+    {
+        // send message
+        vecChannels[iOtherChanID].CreateMuteMyselfStateHasChangedMes ( iCurChanID, bIsMuted );
+    }
+}
+
 int CServer::GetFreeChan()
 {
     // look for a free channel

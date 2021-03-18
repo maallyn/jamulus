@@ -1160,6 +1160,21 @@ bool CProtocol::EvaluateMuteStateHasChangedMes ( const CVector<uint8_t> &vecData
     return false; // no error
 }
 
+void CProtocol::CreateMuteMyselfStateHasChangedMes ( const int iChanID, const bool bIsMuted )
+{
+    CVector<uint8_t> vecData ( 2 ); // 2 bytes of data
+    int              iPos = 0;      // init position pointer
+
+    // build data vector
+    // channel ID
+    PutValOnStream ( vecData, iPos, static_cast<uint32_t> ( iChanID ), 1 );
+
+    // mute state
+    PutValOnStream ( vecData, iPos, static_cast<uint32_t> ( bIsMuted ), 1 );
+
+    CreateAndSendMessage ( PROTMESSID_MUTEMYSELF_STATE_CHANGED, vecData );
+}
+
 bool CProtocol::EvaluateMuteMyselfStateHasChangedMes ( const CVector<uint8_t> &vecData )
 {
     int iPos = 0; // init position pointer
