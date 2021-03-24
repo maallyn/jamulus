@@ -136,6 +136,11 @@ public:
         CreateOtherMuteStateChanged ( slotId - 1, iChanID, bIsMuted );
     }
 
+    void OnMuteMyselfStateHasChangedCh ( int iChanID, bool bIsMuted )
+    {
+        CreateOtherMuteMyselfStateChanged ( slotId - 1, iChanID, bIsMuted );
+    }
+
     void OnServerAutoSockBufSizeChangeCh ( int iNNumFra )
     {
         CreateAndSendJitBufMessage ( slotId - 1, iNNumFra );
@@ -151,6 +156,10 @@ protected:
                                                           const QString& strChatText ) = 0;
 
     virtual void CreateOtherMuteStateChanged ( const int  iCurChanID,
+                                               const int  iOtherChanID,
+                                               const bool bIsMuted ) = 0;
+
+    virtual void CreateOtherMuteMyselfStateChanged ( const int  iCurChanID,
                                                const int  iOtherChanID,
                                                const bool bIsMuted ) = 0;
 
